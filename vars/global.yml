@@ -96,14 +96,14 @@ switch:
   list:
     - name: aoscx_bdf01
     - name: aoscx_bdf02
-    #- name: aoscx_core01
-    #- name: aoscx_core02
-    #- name: aoscx_bdrlf01
-    #- name: aoscx_bdrlf02
-    #- name: aoscx_spine01
-    #- name: aoscx_spine02
-    #- name: aoscx_lf101
-    #- name: aoscx_lf102
-    #  networks:
-    #    - name: 'test'
-    #      port: '1/1/1'
+    - name: aoscx_core01
+    - name: aoscx_core02
+    - name: aoscx_bdrlf01
+    - name: aoscx_bdrlf02
+    - name: aoscx_spine01
+    - name: aoscx_spine02
+    - name: aoscx_lf101
+    - name: aoscx_lf102
+      networks:
+        - name: 'test'
+          port: '1/1/1'
