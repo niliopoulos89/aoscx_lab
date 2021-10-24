@@ -27,7 +27,7 @@
         networks: "{u'Null':u'{{ switch.ova.default_network }}'}"
         power_on: no
         ovf: "{{ abs_path }}"
-      async: 15
+      async: 30
       poll: 0
       register: ova_install_output
     - name: Confirm Job Completion
