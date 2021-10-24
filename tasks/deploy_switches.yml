@@ -23,7 +23,7 @@
         datacenter: "{{ switch.ova.datacenter }}"
         cluster: "{{ switch.ova.cluster }}"
         datastore: "{{ switch.ova.datastore }}"
-        folder: "{{ '/' + switch.ova.datacenter + '/' + switch.ova.folder }}"
+        folder: "{{ '/' + switch.ova.folder }}"
         name: "{{ item.name }}"
         networks: "{u'Null':u'{{ switch.ova.default_network }}'}"
         power_on: no
