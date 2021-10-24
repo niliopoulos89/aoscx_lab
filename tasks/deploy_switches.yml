@@ -32,4 +32,4 @@
       register: ova_install_output
     - name: Debug
       debug:
-        var: ova_install_output.ansible_job_id
+        var: ansible_facts
