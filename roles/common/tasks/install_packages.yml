@@ -15,3 +15,9 @@
     state: latest
   become: true
   register: jmespath_install_output
+- name: Install PyVmomi Python Module
+  pip:
+    name: pyvmomi
+    state: latest
+  become: true
+  register: pyvmomi_install_output
