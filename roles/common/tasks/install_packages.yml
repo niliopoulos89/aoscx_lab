@@ -1,0 +1,17 @@
+---
+- name: Update APT Repositories
+  apt:
+    update_cache: yes
+  become: true
+- name: Install SSHPass
+  apt:
+    name: "sshpass"
+    state: latest
+  become: true
+  register: sshpass_install_output
+- name: Install JMESPath Python Module
+  pip:
+    name: jmespath
+    state: latest
+  become: true
+  register: jmespath_install_output
