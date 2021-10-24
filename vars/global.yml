@@ -92,7 +92,7 @@ switch:
     datastore: 'nimble_ds03'
     default_network: 'aoscx_mgmt'
     cluster: 'compute'
-    folder: 'Lab/AOSCX'
+    folder: 'AOSCX'
   list:
     - name: aoscx_bdf01
     - name: aoscx_bdf02
