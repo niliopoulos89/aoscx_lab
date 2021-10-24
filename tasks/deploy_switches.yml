@@ -3,25 +3,16 @@
   vars_files:
     - ~/aoscx_lab/vars/global.yml
   tasks:
-    - name: Deploy Switches from OVA
-      community.vmware.vmware_folder_info:
-        hostname: '{{ vcenter.hostname }}'
-        username: '{{ vcenter.username }}'
-        password: '{{ vcenter.password }}'
-        validate_certs: no
-        datacenter: "{{ switch.ova.datacenter }}"
-      register: vcenter_folder_info
-
-    #- name: Determine OVA File Absolute Path
-    #  block:
-    #    - name: Get File Directory Absolute Path
-    #      shell:
-    #        cmd: "pwd"
-    #        chdir: "{{ switch.ova.path }}"
-    #      register: abs_path_output
-    #    - name: Set Fact - OVA File Absolute Path
-    #      set_fact:
-    #        abs_path: "{{ abs_path_output.stdout + '/' + switch.ova.name }}"
+    - name: Determine OVA File Absolute Path
+      block:
+        - name: Get File Directory Absolute Path
+          shell:
+            cmd: "pwd"
+            chdir: "{{ switch.ova.path }}"
+          register: abs_path_output
+        - name: Set Fact - OVA File Absolute Path
+          set_fact:
+            abs_path: "{{ abs_path_output.stdout + '/' + switch.ova.name }}"
     - name: Deploy Switches from OVA
       loop: "{{ switch.list }}"
       community.vmware.vmware_deploy_ovf:
