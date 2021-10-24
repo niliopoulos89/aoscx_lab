@@ -30,6 +30,12 @@
       async: 15
       poll: 0
       register: ova_install_output
-    - name: Debug
-      debug:
-        var: ansible_facts
+    - name: Confirm Job Completion
+      loop: "{{ ova_install_output.results }}"
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+        mode: status
+      retries: 120
+      delay: 10
+      register: async_loop_jobs
+      until: async_loop_jobs.finished
