@@ -27,3 +27,9 @@
         networks: "{u'Null':u'{{ switch.ova.default_network }}'}"
         power_on: no
         ovf: "{{ abs_path }}"
+      async: 15
+      poll: 0
+      register: ova_install_output
+    - name: Debug
+      debug:
+        var: ova_install_output.ansible_job_id
