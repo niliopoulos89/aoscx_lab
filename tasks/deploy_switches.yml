@@ -19,6 +19,7 @@
         hostname: '{{ vcenter.ip }}'
         username: '{{ vcenter.username }}'
         password: '{{ vcenter.password }}'
+        validate_certs: no
         datacenter: "{{ switch.ova.datacenter }}"
         cluster: "{{ switch.ova.cluster }}"
         datastore: "{{ switch.ova.datastore }}"
