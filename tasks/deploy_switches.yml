@@ -16,7 +16,7 @@
     - name: Deploy Switches from OVA
       loop: "{{ switch.list }}"
       community.vmware.vmware_deploy_ovf:
-        hostname: '{{ vcenter.hostname }}'
+        hostname: '{{ vcenter.ip }}'
         username: '{{ vcenter.username }}'
         password: '{{ vcenter.password }}'
         datacenter: "{{ switch.ova.datacenter }}"

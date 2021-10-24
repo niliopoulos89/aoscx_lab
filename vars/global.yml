@@ -1,5 +1,6 @@
 ---
 vcenter:
+  ip: 10.11.55.5
   hostname: 'nsxt-vc01.messier.local'
   username: 'administrator@vsphere.local'
   password: 'W0rldc0m!'
