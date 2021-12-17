@@ -1,109 +1,22 @@
 ---
+switch:
+  credentials:
+    username: admin
+    password: W0rldc0m!
+  oobm:
+    cidr: 24
+    gateway: 10.13.243.1
+  system:
+    dns:
+      - 10.11.63.8
+      - 10.11.63.9
+  switches:
+    - name: lf101
+      role: spine
+      oobm: 10.13.243.11
+switch_list:
 vcenter:
   ip: 10.11.55.5
   hostname: 'nsxt-vc01.messier.local'
   username: 'administrator@vsphere.local'
   password: 'W0rldc0m!'
-
-nsx:
-  cluster:
-    hostname: 10.11.55.40
-    username: 'admin'
-    password: 'W0rldc0m!W0rldc0m!'
-  segments:
-    tz: tz_ov
-    segment_profiles:
-      ip: 'aoscx_ip_prof'
-      mac: 'aoscx_mac_prof'
-      qos: 'aoscx_qos_prof'
-      spf: 'aoscx_spf_prof'
-      sec: 'aoscx_sec_prof'
-    list:
-      - name: aoscx_mgmt
-        t1: lab_cx_mgmt_t1
-        ip: 10.13.21.1/24
-      - name: aoscx_core_wan_l3out_1
-        t1: lab_cx_wan_t1
-        ip: 10.169.169.1/30
-      - name: aoscx_core_wan_l3out_2
-        t1: lab_cx_wan_t1
-        ip: 10.169.169.5/30
-      - name: aoscx_bdrlf_wan_l3out_1
-        t1: lab_cx_wan_t1
-        ip: 10.169.169.9/30
-      - name: aoscx_bdrlf_wan_l3out_2
-        t1: lab_cx_wan_t1
-        ip: 10.169.169.13/30
-      - name: aoscx_bdf1_vsx_link1
-        vlans:
-          - 1-4094
-      - name: aoscx_bdf1_vsx_link2
-        vlans:
-          - 1-4094
-      - name: aoscx_core_peer_link1
-        vlans:
-          - 1-4094
-      - name: aoscx_core_peer_link2
-        vlans:
-          - 1-4094
-      - name: aoscx_bdrlf_vsx_link1
-        vlans:
-          - 1-4094
-      - name: aoscx_bdrlf_vsx_link2
-        vlans:
-          - 1-4094
-      - name: aoscx_lf1_vsx_link1
-        vlans:
-          - 1-4094
-      - name: aoscx_lf1_vsx_link2
-        vlans:
-          - 1-4094
-      - name: aoscx_bdf1_vsx_keepalive
-      - name: aoscx_bdrlf_vsx_keepalive
-      - name: aoscx_lf1_vsx_keepalive
-      - name: aoscx_bdf1_core_transit1
-      - name: aoscx_bdf1_core_transit2
-      - name: aoscx_bdf1_core_transit3
-      - name: aoscx_bdf1_core_transit4
-      - name: aoscx_core_bdrlf_transit1
-      - name: aoscx_core_bdrlf_transit2
-      - name: aoscx_core_bdrlf_transit3
-      - name: aoscx_core_bdrlf_transit4
-      - name: aoscx_bdrlf_spine_transit1
-      - name: aoscx_bdrlf_spine_transit2
-      - name: aoscx_bdrlf_spine_transit3
-      - name: aoscx_bdrlf_spine_transit4
-      - name: aoscx_lf1_spine_transit1
-      - name: aoscx_lf1_spine_transit2
-      - name: aoscx_lf1_spine_transit3
-      - name: aoscx_lf1_spine_transit4
-      - name: aoscx_dcclient1_downstream
-      - name: aoscx_dcclient2_downstream
-      - name: aoscx_dcclient3_downstream
-      - name: aoscx_dcclient4_downstream
-      - name: aoscx_client1_downstream
-      - name: aoscx_client2_downstream
-
-switch:
-  ova:
-    name: 'aoscx_10_07_0010.ova'
-    path: '~/aoscx_lab/files'
-    datacenter: 'DC1'
-    datastore: 'nimble_ds03'
-    default_network: 'aoscx_mgmt'
-    cluster: 'compute'
-    folder: 'Lab/AOSCX'
-  list:
-    - name: aoscx_bdf01
-    - name: aoscx_bdf02
-    - name: aoscx_core01
-    - name: aoscx_core02
-    - name: aoscx_bdrlf01
-    - name: aoscx_bdrlf02
-    - name: aoscx_spine01
-    - name: aoscx_spine02
-    - name: aoscx_lf101
-    - name: aoscx_lf102
-      networks:
-        - name: 'test'
-          port: '1/1/1'
