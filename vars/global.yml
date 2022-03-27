@@ -1,4 +1,31 @@
 ---
+eveng:
+  credentials:
+    username: wei
+    password: W0rldc0m!
+    hostname: 10.11.55.39
+    protocol: https
+    validate_certs: False
+  lab:
+    name: AOSCX
+    description: AOS CX Spine Leaf
+    path: labs/Users/
+
+management:
+  fabric_composer:
+    credentials:
+      username: admin
+      password: W0rldc0m!
+      hostname: 10.11.55.46
+      validate_certs: False
+    integrations:
+      netedit:
+        credentials:
+          username: admin
+          password: W0rldc0m!
+          hostname: 10.11.55.45
+          validate_certs: False
+
 switch:
   credentials:
     username: admin
@@ -7,16 +34,50 @@ switch:
     cidr: 24
     gateway: 10.13.243.1
   system:
+    mtu: 9000
     dns:
       - 10.11.63.8
       - 10.11.63.9
+    ntp:
+      - 10.11.63.8
+      - 10.11.63.9
+    sync:
+      - control-plane-acls
+      - aaa
+      - copp-policy
+      - dhcp-relay
+      - dns
+      - evpn
+      - mclag-interfaces
+      - qos-global
+      - sflow-global
+      - snmp
+      - ssh
+      - stp-global
+      - time
+      - vsx-global
   switches:
-    - name: lf101
+    - name: sp101
       role: spine
       oobm: 10.13.243.11
-switch_list:
+    - name: sp102
+      role: spine
+      oobm: 10.13.243.12
+    - name: lf201
+      role: leaf
+      oobm: 10.13.243.21
+    - name: lf202
+      role: leaf
+      oobm: 10.13.243.22
+    - name: lf203
+      role: leaf
+      oobm: 10.13.243.23
+    - name: lf204
+      role: leaf
+      oobm: 10.13.243.24
+
 vcenter:
-  ip: 10.11.55.5
-  hostname: 'nsxt-vc01.messier.local'
+  ip: 10.11.63.5
+  hostname: 'vc1.grgrenada.training'
   username: 'administrator@vsphere.local'
-  password: 'W0rldc0m!'
+  password: 'W0rldc0m!W0rldc0m!'

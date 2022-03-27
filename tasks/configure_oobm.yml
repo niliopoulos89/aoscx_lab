@@ -1,0 +1,81 @@
+- hosts: 127.0.0.1
+  connection: local
+  #no_log: True
+  vars_files:
+    - ~/aoscx_lab/vars/global.yml
+  tasks:
+    - name: Task Block - Eve-NG Tasks
+      block:
+        - name: Log Into EVE-NG
+          uri:
+            method: POST
+            url: "{{ eveng.credentials.protocol }}://{{ eveng.credentials.hostname }}/api/auth/login"
+            headers:
+              Content-Type: application/json
+            body:
+              username: admin
+              password: eve
+              html5: -1
+            body_format: json
+            validate_certs: "{{ eveng.credentials.validate_certs }}"
+            status_code: 200
+          register: login
+
+        - name: Get Lab Node Details
+          uri:
+            method: GET
+            url: "{{ eveng.credentials.protocol }}://{{ eveng.credentials.hostname }}/api/{{ eveng.lab.path }}{{ eveng.lab.name }}.unl/nodes"
+            headers:
+              Cookie: "{{ login.cookies_string }}"
+            body: ""
+            body_format: json
+            validate_certs: "{{ eveng.credentials.validate_certs }}"
+            return_content: yes
+            status_code: 200
+          register: node_output
+
+        - name: Log Out of EVE-NG
+          uri:
+            method: GET
+            url: "{{ eveng.credentials.protocol }}://{{ eveng.credentials.hostname }}/api/auth/logout"
+            headers:
+              Cookie: "{{ login.cookies_string }}"
+            body: ""
+            body_format: json
+            validate_certs: "{{ eveng.credentials.validate_certs }}"
+            status_code: 200
+
+    - name: Set Facts - Switch Remote Access Info
+      vars:
+        node_jquery1: "json.data.[*]"
+        node_jquery2: "[*].{key: name, value: url}"
+      set_fact:
+        telnet_port_map: "{{ node_output | json_query(node_jquery1) | flatten | json_query(node_jquery2) | items2dict }}"
+
+    - name: First Time Login & OOBM Configuration
+      loop: "{{ switch.switches }}"
+      vars:
+        telnet_port: "{{ telnet_port_map[item.name].split(':') | last }}"
+      ansible.netcommon.telnet:
+        host: "{{ eveng.credentials.hostname }}"
+        port: "{{ telnet_port }}"
+        user: "admin"
+        password: "\n"
+        login_prompt: "switch login: "
+        send_newline: True
+        prompts:
+          - "Enter new password:"
+          - "Confirm new password:"
+          - "#"
+        command:
+          - "{{ switch.credentials.password }}"
+          - "{{ switch.credentials.password }}"
+          - "configure"
+          - "hostname {{ item.name }}"
+          - "user {{ switch.credentials.username }} group administrators password plaintext {{ switch.credentials.password }}"
+          - "interface mgmt"
+          - "no shutdown"
+          - "ip static {{ item.oobm }}/{{ switch.oobm.cidr }}"
+          - "default-gateway {{ switch.oobm.gateway }}"
+          - "write memory"
+          - "ping {{ switch.oobm.gateway }} vrf mgmt repetitions 20"

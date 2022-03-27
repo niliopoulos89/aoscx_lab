@@ -3,21 +3,24 @@
   apt:
     update_cache: yes
   become: true
-- name: Install SSHPass
+
+- name: Install APT Packages
+  vars:
+    apt_packages:
+      - sshpass
+  loop: "{{ apt_packages }}"
   apt:
-    name: "sshpass"
+    name: "{{ item }}"
     state: latest
   become: true
-  register: sshpass_install_output
-- name: Install JMESPath Python Module
+
+- name: Install Python Modules
+  vars:
+    python_modules:
+      - jmespath
+      - openpyxl
+  loop: "{{ python_modules }}"
   pip:
     name: jmespath
     state: latest
   become: true
-  register: jmespath_install_output
-- name: Install PyVmomi Python Module
-  pip:
-    name: pyvmomi
-    state: latest
-  become: true
-  register: pyvmomi_install_output
